@@ -16,19 +16,10 @@ function parseNumber(value: string | null, fallback: number): number {
   return Number.isNaN(n) ? fallback : Math.max(1, n)
 }
 
-/**
- * Next.js hook for URL-driven table state management.
- * Reads and writes table state to/from URL search parameters.
- * 
- * @param options - Configuration options
- * @returns Tuple of [currentState, setState] where setState updates the URL
- */
+
 export function useTableState(options: {
-  /** Default items per page */
   defaultLimit?: number
-  /** Keys of custom filters to persist in URL (e.g. ["status", "role"]) */
   filterParamKeys?: readonly string[]
-  /** Persist column visibility in URL */
   persistColumnVisibility?: boolean
 }): [ServerTableState, (updates: Partial<ServerTableState>) => void] {
   const router = useRouter()

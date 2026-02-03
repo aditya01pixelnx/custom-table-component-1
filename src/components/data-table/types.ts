@@ -60,3 +60,19 @@ export interface SelectionColumnProps<TData> {
   rowSelection: RowSelectionState
   setRowSelection: OnChangeFn<RowSelectionState>
 }
+
+
+export interface UseTableStateGenericOptions {
+  /** Initial/default limit */
+  defaultLimit?: number
+  /** Keys of custom filters to track */
+  filterParamKeys?: readonly string[]
+  /** Persist column visibility */
+  persistColumnVisibility?: boolean
+  /** Initial state (overrides defaults) */
+  initialState?: Partial<ServerTableState>
+  /** Callback when state changes (for persistence) */
+  onStateChange?: (state: ServerTableState) => void
+  /** Load initial state from external source (e.g., URL, localStorage) */
+  loadInitialState?: () => Partial<ServerTableState>
+}

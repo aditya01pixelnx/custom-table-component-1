@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { useDebounce } from "@/hooks/use-debounce"
 import { tableStateToParams } from "@/lib/table-utils"
-import { useTableState } from "@/components/data-table/hooks/use-table-state"
+import { useTableState } from "@/hooks/use-table-state"
 import { fetchUsers } from "@/lib/api/users"
 import { ServerDataTable } from "@/components/data-table"
 import { usersColumns } from "./columns"

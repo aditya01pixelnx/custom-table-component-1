@@ -1,8 +1,13 @@
 "use client"
 
-
-
-import * as React from "react"
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  type ChangeEvent,
+} from "react"
 import {
   flexRender,
   getCoreRowModel,
@@ -96,22 +101,22 @@ export function ServerDataTable<TData>({
   className,
 }: ServerDataTableProps<TData>) {
 
-  const [searchInput, setSearchInput] = React.useState<string>(tableState.search)
+  const [searchInput, setSearchInput] = useState<string>(tableState.search)
   const debouncedSearchInput = useDebounce(searchInput, searchDebounceMs)
 
-  React.useEffect(() => {
+  useEffect(() => {
     setSearchInput(tableState.search)
   }, [tableState.search])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (debouncedSearchInput === tableState.search) return
     onTableStateChange({ search: debouncedSearchInput, page: 1 })
   }, [debouncedSearchInput])
 
   const [internalRowSelection, setInternalRowSelection] =
-    React.useState<RowSelectionState>({})
+    useState<RowSelectionState>({})
   const effectiveRowSelection = rowSelection ?? internalRowSelection
-  const setRowSelection = React.useCallback(
+  const setRowSelection = useCallback(
     (updater: RowSelectionState | ((prev: RowSelectionState) => RowSelectionState)) => {
       if (onRowSelectionChange) {
         onRowSelectionChange(updater as any)
@@ -122,7 +127,7 @@ export function ServerDataTable<TData>({
     [onRowSelectionChange]
   )
 
-  const effectiveColumns = React.useMemo<ColumnDef<TData, unknown>[]>(() => {
+  const effectiveColumns = useMemo<ColumnDef<TData, unknown>[]>(() => {
     if (!enableRowSelection) {
       return columns
     }
@@ -188,16 +193,16 @@ export function ServerDataTable<TData>({
   })
 
   const totalPages = Math.ceil(total / tableState.limit) || 0
-  const selectedRows = React.useMemo(() => {
+  const selectedRows = useMemo(() => {
     if (!enableRowSelection) return []
     return table.getSelectedRowModel().rows.map((r) => r.original)
   }, [enableRowSelection, table, effectiveRowSelection])
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value)
   }
 
-  const [expandedRows, setExpandedRows] = React.useState<Set<string>>(new Set())
+  const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set())
   const toggleExpanded = (rowId: string) => {
     setExpandedRows((prev) => {
       const next = new Set(prev)
@@ -308,7 +313,7 @@ export function ServerDataTable<TData>({
                 const rowId = row.id
                 const isExpanded = expandedRows.has(rowId)
                 return (
-                  <React.Fragment key={row.id}>
+                  <Fragment key={row.id}>
                     <TableRow
                       data-state={row.getIsSelected() ? "selected" : undefined}
                     >
@@ -344,7 +349,7 @@ export function ServerDataTable<TData>({
                         </TableCell>
                       </TableRow>
                     )}
-                  </React.Fragment>
+                  </Fragment>
                 )
               })
             )}
