@@ -53,6 +53,7 @@ function createSelectionColumn<TData>(
       const some = table.getIsSomePageRowsSelected()
       return (
         <Checkbox
+          className="mr-3"
           checked={all ? true : some ? "indeterminate" : false}
           onCheckedChange={(checked) => {
             table.toggleAllPageRowsSelected(Boolean(checked))
@@ -64,6 +65,7 @@ function createSelectionColumn<TData>(
     cell: ({ row }) => {
       return (
         <Checkbox
+          className="mr-3"
           checked={row.getIsSelected()}
           onCheckedChange={(checked) => row.toggleSelected(Boolean(checked))}
           aria-label="Select row"
@@ -257,7 +259,7 @@ export function ServerDataTable<TData>({
         </div>
       )}
 
-      <div className="relative max-w-full overflow-x-auto rounded-xl border shadow-md bg-card">
+      <div className="relative max-w-full overflow-x-auto rounded-xl border shadow-lg bg-card">
         {isFetching && !isLoading && (
           <div className="absolute inset-0 z-10 flex items-center justify-center rounded-md bg-background/60">
             <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />

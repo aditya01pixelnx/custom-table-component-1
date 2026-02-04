@@ -103,7 +103,7 @@ function UsersContent() {
 
 
   return (
-    <main className="w-full px-4 py-6 overflow-x-auto">
+    <main className="w-full max-w-[1600px] mx-auto md:px-6 xl:px-10 py-6 overflow-x-auto ">
       <h1 className="text-2xl font-semibold mb-6">Users</h1>
       <ServerDataTable<User>
         tableState={tableState}
